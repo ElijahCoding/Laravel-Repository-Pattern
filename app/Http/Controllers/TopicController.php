@@ -21,6 +21,8 @@ class TopicController extends Controller
 
     public function index()
     {
-        return $this->topics->find(1);
+        $topics = $this->topics->all();
+        
+        return view('topics.index', compact('topics'));
     }
 }
