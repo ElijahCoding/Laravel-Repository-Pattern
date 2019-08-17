@@ -2,8 +2,8 @@
 
 namespace App\Repositories;
 
-use Exception;
 use App\Repositories\Contracts\RepositoryInterface;
+use App\Repositories\Exceptions\NoEntityDefined;
 
 abstract class RepositoryAbstract implements RepositoryInterface
 {
@@ -22,7 +22,7 @@ abstract class RepositoryAbstract implements RepositoryInterface
     protected function resolveEntity()
     {
         if (!method_exists($this, 'entity')) {
-            throw new Exception('No entity defined');
+            throw new NoEntityDefined();
         }
 
          return app()->make($this->entity());
