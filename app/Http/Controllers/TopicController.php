@@ -21,8 +21,8 @@ class TopicController extends Controller
 
     public function index()
     {
-        $topics = $this->topics->all();
-        
+        $topics = $this->topics->withCriteria(1,2,3)->paginate();
+
         return view('topics.index', compact('topics'));
     }
 }
