@@ -21,6 +21,6 @@ class TopicController extends Controller
 
     public function index()
     {
-        return $this->topics->all();
+        return $this->topics->find(1);
     }
 }
