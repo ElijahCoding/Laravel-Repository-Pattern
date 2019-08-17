@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Repositories\Contracts\{
     TopicRepository, UserRepository
 };
+use App\Repositories\Eloquent\Criteria\{
+    LatestFirst
+};
 
 class TopicController extends Controller
 {
@@ -21,7 +24,9 @@ class TopicController extends Controller
 
     public function index()
     {
-        $topics = $this->topics->withCriteria(1,2,3)->paginate();
+        $topics = $this->topics->withCriteria(
+                new LatestFirst()
+            )->paginate();
 
         return view('topics.index', compact('topics'));
     }

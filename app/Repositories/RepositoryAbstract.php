@@ -17,7 +17,7 @@ abstract class RepositoryAbstract implements RepositoryInterface, CriteriaInterf
 
     public function all()
     {
-        return $this->entity->all();
+        return $this->entity->get();
     }
 
     public function find($id)
@@ -57,7 +57,13 @@ abstract class RepositoryAbstract implements RepositoryInterface, CriteriaInterf
 
     public function withCriteria(...$criteria)
     {
-        dd($criteria);
+        $criteria = array_flatten($criteria);
+
+        foreach ($criteria as $criterion) {
+            $this->entity = $criterion->apply($this->entity);
+        }
+
+        return $this;
     }
 
     protected function resolveEntity()
