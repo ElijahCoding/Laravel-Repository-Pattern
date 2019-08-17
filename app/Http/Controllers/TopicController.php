@@ -7,7 +7,7 @@ use App\Repositories\Contracts\{
     TopicRepository, UserRepository
 };
 use App\Repositories\Eloquent\Criteria\{
-    LatestFirst, IsLive
+    LatestFirst, IsLive, ByUser
 };
 
 class TopicController extends Controller
@@ -24,10 +24,11 @@ class TopicController extends Controller
 
     public function index()
     {
-        $topics = $this->topics->withCriteria(
+        $topics = $this->topics->withCriteria([
                 new LatestFirst(),
-                new IsLive()
-            )->paginate();
+                new IsLive(),
+                new ByUser(auth()->id())
+            ])->paginate();
 
         return view('topics.index', compact('topics'));
     }
