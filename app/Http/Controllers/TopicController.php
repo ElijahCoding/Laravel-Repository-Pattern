@@ -27,8 +27,10 @@ class TopicController extends Controller
         $topics = $this->topics->withCriteria([
                 new LatestFirst(),
                 new IsLive(),
-                new ByUser(auth()->id())
-            ])->paginate();
+                // new ByUser(auth()->id())
+            ])->all();
+
+            // $topics->load(['posts', 'posts.user']);  Bad way 
 
         return view('topics.index', compact('topics'));
     }
