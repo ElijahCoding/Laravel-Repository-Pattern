@@ -39,9 +39,10 @@ class TopicController extends Controller
     public function show($slug)
     {
         $topic = $this->topics->withCriteria([
+            new IsLive(),
             new EagerLoad(['posts.user'])
             ])->findBySlug($slug);
-
+            
         return view('topics.show', compact('topic'));
     }
 }
