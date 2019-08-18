@@ -34,4 +34,13 @@ class TopicController extends Controller
 
         return view('topics.index', compact('topics'));
     }
+
+    public function show($slug)
+    {
+        $topic = $this->topics->withCriteria([
+            new EagerLoad(['posts.user'])
+            ])->findBySlug($slug);
+
+        return view('topics.show', compact('topic'));
+    }
 }
