@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use App\Repositories\Eloquent\EloquentTopicRepository;
+use App\Repositories\Eloquent\Criteria\IsLive;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -23,7 +25,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // $topics = new EloquentTopicRepository();
         //
+        // Route::bind('topic', function ($value) use ($topics) {
+        //     return $topics->withCriteria(new IsLive())->findBySlug($value);
+        // });
 
         parent::boot();
     }

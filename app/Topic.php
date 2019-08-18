@@ -14,6 +14,11 @@ class Topic extends Model
         'user_id', 'title', 'slug'
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public function posts()
     {
         return $this->hasMany(Post::class);
