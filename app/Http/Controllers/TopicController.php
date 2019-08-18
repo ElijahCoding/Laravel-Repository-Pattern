@@ -7,7 +7,7 @@ use App\Repositories\Contracts\{
     TopicRepository, UserRepository
 };
 use App\Repositories\Eloquent\Criteria\{
-    LatestFirst, IsLive, ByUser
+    LatestFirst, IsLive, EagerLoad
 };
 
 class TopicController extends Controller
@@ -27,10 +27,10 @@ class TopicController extends Controller
         $topics = $this->topics->withCriteria([
                 new LatestFirst(),
                 new IsLive(),
-                // new ByUser(auth()->id())
+                new EagerLoad(['posts', 'posts.user'])
             ])->all();
 
-            // $topics->load(['posts', 'posts.user']);  Bad way 
+            // $topics->load(['posts', 'posts.user']);  Bad way
 
         return view('topics.index', compact('topics'));
     }
